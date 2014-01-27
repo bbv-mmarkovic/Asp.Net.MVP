@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Default.aspx.cs" company="bbv Software Services AG">
+// <copyright file="CustomersPresenter.cs" company="bbv Software Services AG">
 //   Copyright (c) 2014
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -12,16 +12,25 @@
 //   limitations under the License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace bbv.MvpSimple
 {
-    using System;
+    using bbv.MvpSimple.Repositories;
 
-    public partial class Default : System.Web.UI.Page
+    public class CustomersPresenter
     {
-        protected void Page_Load(object sender, EventArgs e)
+        private readonly ICustomersView view;
+
+        public CustomersPresenter(ICustomersView view)
         {
-            Response.Redirect("~/Customers.aspx");
+            this.view = view;
+        }
+
+        public void LoadCustomers()
+        {
+            var repository = new CustomerRepository();
+
+            this.view.CustomersGridView.DataSource = repository.GetAll();
+            this.view.CustomersGridView.DataBind();
         }
     }
 }

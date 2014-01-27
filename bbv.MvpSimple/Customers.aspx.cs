@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Default.aspx.cs" company="bbv Software Services AG">
+// <copyright file="Orders.aspx.cs" company="bbv Software Services AG">
 //   Copyright (c) 2014
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -16,12 +16,34 @@
 namespace bbv.MvpSimple
 {
     using System;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
 
-    public partial class Default : System.Web.UI.Page
+    public interface ICustomersView
     {
+        GridView CustomersGridView { get; }
+    }
+
+    public partial class Customers : Page, ICustomersView
+    {
+        private readonly CustomersPresenter presenter;
+
+        public Customers()
+        {
+            this.presenter = new CustomersPresenter(this);
+        }
+
+        public GridView CustomersGridView
+        {
+            get
+            {
+                return this.gvCustomers;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect("~/Customers.aspx");
+            this.presenter.LoadCustomers();
         }
     }
 }
