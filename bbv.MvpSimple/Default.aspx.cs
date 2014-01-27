@@ -16,10 +16,9 @@
 namespace bbv.MvpSimple
 {
     using System;
-    using System.Collections.Generic;
     using System.Web.UI;
-    using bbv.SampleCore;
 
+    using CustomerRepository = bbv.MvpSimple.Repositories.CustomerRepository;
 
     public partial class Default : Page
     {

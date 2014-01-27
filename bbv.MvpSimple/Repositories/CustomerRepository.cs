@@ -13,7 +13,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace bbv.SampleCore
+namespace bbv.MvpSimple.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;

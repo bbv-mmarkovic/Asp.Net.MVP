@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbv.SampleCore
+namespace bbv.MvpSimple.Repositories
 {
     using System;
     using System.Collections.Generic;

@@ -7,29 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbv.SampleCore
+namespace bbv.MvpSimple.Repositories
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class NorthwindEntities : DbContext
     {
         public NorthwindEntities()
             : base("name=NorthwindEntities")
         {
         }
-
-        public NorthwindEntities(string connectionString)
-            : base(connectionString)
+    
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            throw new UnintentionalCodeFirstException();
         }
-
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    throw new UnintentionalCodeFirstException();
-        //}
-
+    
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }

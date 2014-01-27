@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbv.SampleCore
+namespace bbv.MvpSimple.Repositories
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Supplier
+    public partial class Customer
     {
-        public Supplier()
+        public Customer()
         {
-            this.Products = new HashSet<Product>();
+            this.Orders = new HashSet<Order>();
         }
     
-        public int Supplier_ID { get; set; }
+        public string Customer_ID { get; set; }
         public string Company_Name { get; set; }
         public string Contact_Name { get; set; }
         public string Contact_Title { get; set; }
@@ -31,6 +31,6 @@ namespace bbv.SampleCore
         public string Phone { get; set; }
         public string Fax { get; set; }
     
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
