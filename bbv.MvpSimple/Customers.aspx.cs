@@ -13,20 +13,52 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable InconsistentNaming
+
 namespace bbv.MvpSimple
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
 
     using bbv.MvpSimple.Repositories;
 
     public partial class Customers : Page
     {
+        private readonly CustomerRepository repository;
+
+        public Customers()
+        {
+            this.repository = new CustomerRepository();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            var repository = new CustomerRepository();
+            this.SearchCustomerControl1.SearchPerformed += this.SearchCustomerControl_OnSearchPerformed;
+            this.SearchCustomerControl1.SearchCleared += this.SearchCustomerControl_OnSearchCleared;
 
-            this.gvCustomers.DataSource = repository.GetAll();
+            this.gvCustomers.DataSource = this.repository.GetAll();
+            this.gvCustomers.DataBind();
+        }
+
+        protected void gvCustomers_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            var customerList = (IReadOnlyList<Customer>)this.gvCustomers.DataSource;
+            Customer customerToDelete = customerList[e.RowIndex];
+
+            this.repository.Delete(customerToDelete.Customer_ID);
+        }
+
+        private void SearchCustomerControl_OnSearchPerformed(object sender, PerformSearchByCompanyEventArgs eventArgs)
+        {
+            this.gvCustomers.DataSource = this.repository.GetMatching(eventArgs.SearchTerm);
+            this.gvCustomers.DataBind();
+        }
+
+        private void SearchCustomerControl_OnSearchCleared(object sender, EventArgs eventArgs)
+        {
+            this.gvCustomers.DataSource = this.repository.GetAll();
             this.gvCustomers.DataBind();
         }
     }

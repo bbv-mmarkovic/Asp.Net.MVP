@@ -20,7 +20,7 @@ namespace bbv.MvpSimple.Repositories
 
     public class CustomerRepository
     {
-        public IReadOnlyCollection<Customer> GetAll()
+        public IReadOnlyList<Customer> GetAll()
         {
             using (var context = new NorthwindEntities())
             {
@@ -31,15 +31,39 @@ namespace bbv.MvpSimple.Repositories
             }
         }
 
+        public IReadOnlyList<Customer> GetMatching(string company)
+        {
+            string searchTerm = company.Trim().ToLowerInvariant();
+
+            using (var context = new NorthwindEntities())
+            {
+                var query = from customer in context.Customers
+                            where customer.Company_Name.ToLowerInvariant().Contains(searchTerm)
+                            select customer;
+
+                return query.ToList();
+            }
+        }
+
         public Customer Get(string id)
         {
             using (var context = new NorthwindEntities())
             {
-                var query = from customer in context.Customers
-                            where customer.Customer_ID == id
+                var query = from customer in context.Customers 
+                            where customer.Customer_ID == id 
                             select customer;
 
                 return query.FirstOrDefault();
+            }
+        }
+
+        public void Delete(string id)
+        {
+            using (var context = new NorthwindEntities())
+            {
+                Customer customerToDelete = context.Customers.First(x => x.Customer_ID == id);
+                context.Customers.Remove(customerToDelete);
+                context.SaveChanges();
             }
         }
     }

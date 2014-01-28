@@ -10,33 +10,33 @@
 namespace bbv.MvpSimple {
     
     
-    public partial class Customers {
+    public partial class SearchCustomerControl {
         
         /// <summary>
-        /// form1 control.
+        /// txtSearchTerm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox txtSearchTerm;
         
         /// <summary>
-        /// SearchCustomerControl1 control.
+        /// btnSearchByCompany control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::bbv.MvpSimple.SearchCustomerControl SearchCustomerControl1;
+        protected global::System.Web.UI.WebControls.Button btnSearchByCompany;
         
         /// <summary>
-        /// gvCustomers control.
+        /// btnClearSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCustomers;
+        protected global::System.Web.UI.WebControls.Button btnClearSearch;
     }
 }
