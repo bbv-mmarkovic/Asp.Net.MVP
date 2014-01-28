@@ -17,33 +17,17 @@ namespace bbv.MvpSimple
 {
     using System;
     using System.Web.UI;
-    using System.Web.UI.WebControls;
 
-    public interface ICustomersView
+    using bbv.MvpSimple.Repositories;
+
+    public partial class Customers : Page
     {
-        GridView CustomersGridView { get; }
-    }
-
-    public partial class Customers : Page, ICustomersView
-    {
-        private readonly CustomersPresenter presenter;
-
-        public Customers()
-        {
-            this.presenter = new CustomersPresenter(this);
-        }
-
-        public GridView CustomersGridView
-        {
-            get
-            {
-                return this.gvCustomers;
-            }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.presenter.LoadCustomers();
+            var repository = new CustomerRepository();
+
+            this.gvCustomers.DataSource = repository.GetAll();
+            this.gvCustomers.DataBind();
         }
     }
 }

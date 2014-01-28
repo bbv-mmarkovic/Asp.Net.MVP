@@ -10,7 +10,7 @@
     <form id="form1" runat="server">
         <h2>Details</h2>
         <div>
-            <a href="Default.aspx">&lArr; Back</a>
+            <a href="Customers.aspx">&lArr; Back</a>
         </div>
         <div style="margin-top: 30px">
             <asp:DetailsView runat="server" ID="dvDetails" CellPadding="4" ForeColor="#333333" GridLines="None" >

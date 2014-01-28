@@ -18,7 +18,7 @@ namespace bbv.MvpSimple
     using System;
     using System.Web.UI;
 
-    using CustomerRepository = bbv.MvpSimple.Repositories.CustomerRepository;
+    using bbv.MvpSimple.Repositories;
 
     public partial class CustomerDetails : Page
     {
