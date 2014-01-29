@@ -32,6 +32,8 @@ namespace bbv.MvpSimple
 
         protected void btnSearchByCompany_Click(object sender, EventArgs e)
         {
+            this.btnClearSearch.Enabled = !string.IsNullOrWhiteSpace(this.txtSearchTerm.Text);
+
             if (this.SearchPerformed != null)
             {
                 this.SearchPerformed(this, new PerformSearchByCompanyEventArgs(this.txtSearchTerm.Text));
@@ -41,6 +43,7 @@ namespace bbv.MvpSimple
         protected void btnClearSearch_Click(object sender, EventArgs e)
         {
             this.txtSearchTerm.Text = string.Empty;
+            this.btnClearSearch.Enabled = false;
 
             if (this.SearchCleared != null)
             {

@@ -33,12 +33,12 @@ namespace bbv.MvpSimple.Repositories
 
         public IReadOnlyList<Customer> GetMatching(string company)
         {
-            string searchTerm = company.Trim().ToLowerInvariant();
+            string searchTerm = company.Trim();
 
             using (var context = new NorthwindEntities())
             {
                 var query = from customer in context.Customers
-                            where customer.Company_Name.ToLowerInvariant().Contains(searchTerm)
+                            where customer.Company_Name.Contains(searchTerm)
                             select customer;
 
                 return query.ToList();
@@ -49,8 +49,8 @@ namespace bbv.MvpSimple.Repositories
         {
             using (var context = new NorthwindEntities())
             {
-                var query = from customer in context.Customers 
-                            where customer.Customer_ID == id 
+                var query = from customer in context.Customers
+                            where customer.Customer_ID == id
                             select customer;
 
                 return query.FirstOrDefault();
