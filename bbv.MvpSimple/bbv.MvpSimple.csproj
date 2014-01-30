@@ -137,6 +137,9 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ICustomerDetailsView.cs" />
+    <Compile Include="ICustomersView.cs" />
+    <Compile Include="ISearchCustomerPresenter.cs" />
     <Compile Include="PerformSearchByCompanyEventArgs.cs" />
     <Compile Include="Repositories\Category.cs">
       <DependentUpon>Northwind.tt</DependentUpon>

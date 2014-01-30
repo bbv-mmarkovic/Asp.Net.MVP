@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CustomerDetails.aspx.cs" company="bbv Software Services AG">
+// <copyright file="ICustomerDetailsView.cs" company="bbv Software Services AG">
 //   Copyright (c) 2014
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -15,33 +15,12 @@
 
 namespace bbv.MvpSimple
 {
-    using System;
-    using System.Web.UI;
-
     using bbv.MvpSimple.Repositories;
 
-    public partial class CustomerDetails : Page, ICustomerDetailsView
+    public interface ICustomerDetailsView
     {
-        private readonly CustomerDetailsPresenter presenter;
+        Customer DetailsData { set; }
 
-        public CustomerDetails()
-        {
-            this.presenter = new CustomerDetailsPresenter(this, new CustomerRepository());
-        }
-
-        public Customer DetailsData
-        {
-            set { this.dvDetails.DataSource = new[] { value }; }
-        }
-
-        public void Bind()
-        {
-            this.dvDetails.DataBind();
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            this.presenter.LoadAndShowCustomerDetails(this.Request.Params["id"]);
-        }
+        void Bind();
     }
 }

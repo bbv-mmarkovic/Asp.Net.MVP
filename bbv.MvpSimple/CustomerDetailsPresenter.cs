@@ -20,8 +20,8 @@ namespace bbv.MvpSimple
 
         public void LoadAndShowCustomerDetails(string customerId)
         {
-            this.view.CustomerDetailsView.DataSource = new[] { this.customerRepository.Get(customerId) };
-            this.view.CustomerDetailsView.DataBind();
+            this.view.DetailsData = this.customerRepository.Get(customerId);
+            this.view.Bind();
         }
     }
 }

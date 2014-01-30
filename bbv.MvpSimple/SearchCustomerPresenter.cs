@@ -7,19 +7,6 @@ namespace bbv.MvpSimple
 {
     using System;
 
-    public interface ISearchCustomerPresenter
-    {
-        event SearchCustomerPresenter.PerformSearchByCompanyHandler SearchPerformed;
-
-        event SearchCustomerPresenter.ClearSearchHandler SearchCleared;
-
-        void Search();
-
-        void Clear();
-
-        void Initialize(ISearchCustomerView view);
-    }
-
     public class SearchCustomerPresenter : ISearchCustomerPresenter
     {
         private ISearchCustomerView view;

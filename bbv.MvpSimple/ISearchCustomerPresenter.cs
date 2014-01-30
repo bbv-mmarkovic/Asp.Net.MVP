@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CustomerDetails.aspx.cs" company="bbv Software Services AG">
+// <copyright file="ISearchCustomerPresenter.cs" company="bbv Software Services AG">
 //   Copyright (c) 2014
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -15,33 +15,16 @@
 
 namespace bbv.MvpSimple
 {
-    using System;
-    using System.Web.UI;
-
-    using bbv.MvpSimple.Repositories;
-
-    public partial class CustomerDetails : Page, ICustomerDetailsView
+    public interface ISearchCustomerPresenter
     {
-        private readonly CustomerDetailsPresenter presenter;
+        event SearchCustomerPresenter.PerformSearchByCompanyHandler SearchPerformed;
 
-        public CustomerDetails()
-        {
-            this.presenter = new CustomerDetailsPresenter(this, new CustomerRepository());
-        }
+        event SearchCustomerPresenter.ClearSearchHandler SearchCleared;
 
-        public Customer DetailsData
-        {
-            set { this.dvDetails.DataSource = new[] { value }; }
-        }
+        void Search();
 
-        public void Bind()
-        {
-            this.dvDetails.DataBind();
-        }
+        void Clear();
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            this.presenter.LoadAndShowCustomerDetails(this.Request.Params["id"]);
-        }
+        void Initialize(ISearchCustomerView view);
     }
 }

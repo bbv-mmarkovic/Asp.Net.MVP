@@ -24,13 +24,6 @@ namespace bbv.MvpSimple
 
     using bbv.MvpSimple.Repositories;
 
-    public interface ICustomersView
-    {
-        IReadOnlyList<Customer> CustomersData { get; set; }
-
-        void ShowCustomersData();
-    }
-
     public partial class Customers : Page, ICustomersView
     {
         private CustomersPresenter presenter;
