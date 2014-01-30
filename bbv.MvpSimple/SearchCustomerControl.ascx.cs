@@ -20,35 +20,45 @@ namespace bbv.MvpSimple
     using System;
     using System.Web.UI;
 
-    public partial class SearchCustomerControl : UserControl
+    public interface ISearchCustomerView
     {
-        public delegate void PerformSearchByCompanyHandler(object sender, PerformSearchByCompanyEventArgs eventArgs);
-        
-        public delegate void ClearSearchHandler(object sender, EventArgs eventArgs);
+        string SearchTerm { get; set; }
 
-        public event PerformSearchByCompanyHandler SearchPerformed;
+        bool ClearSearchButtonEnabled { get; set; }
+    }
 
-        public event ClearSearchHandler SearchCleared;
+    public partial class SearchCustomerControl : UserControl, ISearchCustomerView
+    {
+        private ISearchCustomerPresenter presenter;
+
+        public string SearchTerm
+        {
+            get { return this.txtSearchTerm.Text; }
+            
+            set { this.txtSearchTerm.Text = value; }
+        }
+
+        public bool ClearSearchButtonEnabled
+        {
+            get { return this.btnClearSearch.Enabled; }
+
+            set { this.btnClearSearch.Enabled = value; }
+        }
+
+        public void Initialize(ISearchCustomerPresenter presenter)
+        {
+            this.presenter = presenter;
+            this.presenter.Initialize(this);
+        }
 
         protected void btnSearchByCompany_Click(object sender, EventArgs e)
         {
-            this.btnClearSearch.Enabled = !string.IsNullOrWhiteSpace(this.txtSearchTerm.Text);
-
-            if (this.SearchPerformed != null)
-            {
-                this.SearchPerformed(this, new PerformSearchByCompanyEventArgs(this.txtSearchTerm.Text));
-            }
+            this.presenter.Search();
         }
 
         protected void btnClearSearch_Click(object sender, EventArgs e)
         {
-            this.txtSearchTerm.Text = string.Empty;
-            this.btnClearSearch.Enabled = false;
-
-            if (this.SearchCleared != null)
-            {
-                this.SearchCleared(this, new EventArgs());
-            }
+            this.presenter.Clear();
         }
     }
 }

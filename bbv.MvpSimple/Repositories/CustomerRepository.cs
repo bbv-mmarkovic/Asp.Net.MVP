@@ -18,7 +18,7 @@ namespace bbv.MvpSimple.Repositories
     using System.Collections.Generic;
     using System.Linq;
 
-    public class CustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
         public IReadOnlyList<Customer> GetAll()
         {

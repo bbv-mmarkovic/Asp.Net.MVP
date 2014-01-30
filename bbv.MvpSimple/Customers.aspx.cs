@@ -24,42 +24,54 @@ namespace bbv.MvpSimple
 
     using bbv.MvpSimple.Repositories;
 
-    public partial class Customers : Page
+    public interface ICustomersView
     {
-        private readonly CustomerRepository repository;
+        IReadOnlyList<Customer> CustomersData { get; set; }
 
-        public Customers()
+        void ShowCustomersData();
+    }
+
+    public partial class Customers : Page, ICustomersView
+    {
+        private CustomersPresenter presenter;
+
+        public GridView CustomersGridView
         {
-            this.repository = new CustomerRepository();
+            get { return this.gvCustomers; }
+        }
+
+        public IReadOnlyList<Customer> CustomersData
+        {
+            get { return this.gvCustomers.DataSource as IReadOnlyList<Customer>; }
+
+            set { this.gvCustomers.DataSource = value; }
+        }
+
+        public void Initialize()
+        {
+            var searchCustomerPresenter = new SearchCustomerPresenter();
+
+            this.presenter = new CustomersPresenter();
+            this.presenter.Initialize(this, searchCustomerPresenter, new CustomerRepository());
+
+            this.SearchCustomerControl1.Initialize(searchCustomerPresenter);
+        }
+
+        public void ShowCustomersData()
+        {
+            this.gvCustomers.DataBind();
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SearchCustomerControl1.SearchPerformed += this.SearchCustomerControl_OnSearchPerformed;
-            this.SearchCustomerControl1.SearchCleared += this.SearchCustomerControl_OnSearchCleared;
+            this.Initialize();
 
-            this.gvCustomers.DataSource = this.repository.GetAll();
-            this.gvCustomers.DataBind();
+            this.presenter.LoadAndShowAllCustomers();
         }
 
         protected void gvCustomers_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            var customerList = (IReadOnlyList<Customer>)this.gvCustomers.DataSource;
-            Customer customerToDelete = customerList[e.RowIndex];
-
-            this.repository.Delete(customerToDelete.Customer_ID);
-        }
-
-        private void SearchCustomerControl_OnSearchPerformed(object sender, PerformSearchByCompanyEventArgs eventArgs)
-        {
-            this.gvCustomers.DataSource = this.repository.GetMatching(eventArgs.SearchTerm);
-            this.gvCustomers.DataBind();
-        }
-
-        private void SearchCustomerControl_OnSearchCleared(object sender, EventArgs eventArgs)
-        {
-            this.gvCustomers.DataSource = this.repository.GetAll();
-            this.gvCustomers.DataBind();
+            this.presenter.DeleteCustomerRow(e.RowIndex);
         }
     }
 }

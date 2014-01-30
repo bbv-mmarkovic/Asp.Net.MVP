@@ -128,6 +128,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerDetailsPresenter.cs" />
+    <Compile Include="CustomersPresenter.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -145,6 +147,7 @@
     <Compile Include="Repositories\Employee.cs">
       <DependentUpon>Northwind.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Repositories\Northwind.Context.cs">
       <DependentUpon>Northwind.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -201,6 +204,7 @@
     <Compile Include="SearchCustomerControl.ascx.designer.cs">
       <DependentUpon>SearchCustomerControl.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SearchCustomerPresenter.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

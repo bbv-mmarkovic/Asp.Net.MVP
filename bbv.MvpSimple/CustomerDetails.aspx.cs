@@ -17,23 +17,32 @@ namespace bbv.MvpSimple
 {
     using System;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
 
     using bbv.MvpSimple.Repositories;
 
-    public partial class CustomerDetails : Page
+    public interface ICustomerDetailsView
     {
+        DetailsView CustomerDetailsView { get; }
+    }
+
+    public partial class CustomerDetails : Page, ICustomerDetailsView
+    {
+        private readonly CustomerDetailsPresenter presenter;
+
+        public CustomerDetails()
+        {
+            this.presenter = new CustomerDetailsPresenter(this, new CustomerRepository());
+        }
+
+        public DetailsView CustomerDetailsView
+        {
+            get { return this.dvDetails; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            string customerId = Request.Params["id"];
-            if (customerId == null)
-            {
-                return;
-            }
-
-            var repo = new CustomerRepository();
-
-            this.dvDetails.DataSource = new[] { repo.Get(customerId) };
-            this.dvDetails.DataBind();
+            this.presenter.LoadAndShowCustomerDetails(Request.Params["id"]);
         }
     }
 }
