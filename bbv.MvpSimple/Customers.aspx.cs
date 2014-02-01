@@ -33,13 +33,6 @@ namespace bbv.MvpSimple
             get { return this.gvCustomers; }
         }
 
-        public IReadOnlyList<Customer> CustomersData
-        {
-            get { return this.gvCustomers.DataSource as IReadOnlyList<Customer>; }
-
-            set { this.gvCustomers.DataSource = value; }
-        }
-
         public void Initialize()
         {
             var searchCustomerPresenter = new SearchCustomerPresenter();
@@ -50,9 +43,15 @@ namespace bbv.MvpSimple
             this.SearchCustomerControl1.Initialize(searchCustomerPresenter);
         }
 
-        public void ShowCustomersData()
+        public void ShowCustomers(IReadOnlyList<Customer> customers)
         {
+            this.gvCustomers.DataSource = customers;
             this.gvCustomers.DataBind();
+        }
+
+        public IReadOnlyList<Customer> GetCustomers()
+        {
+            return this.gvCustomers.DataSource as IReadOnlyList<Customer>;
         }
 
         protected void Page_Load(object sender, EventArgs e)

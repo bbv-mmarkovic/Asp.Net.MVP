@@ -19,8 +19,6 @@ namespace bbv.MvpSimple
 
     public interface ICustomerDetailsView
     {
-        Customer DetailsData { set; }
-
-        void Bind();
+        void ShowDetails(Customer customer);
     }
 }

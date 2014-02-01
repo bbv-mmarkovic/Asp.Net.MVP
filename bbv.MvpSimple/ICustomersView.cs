@@ -21,8 +21,8 @@ namespace bbv.MvpSimple
 
     public interface ICustomersView
     {
-        IReadOnlyList<Customer> CustomersData { get; set; }
+        void ShowCustomers(IReadOnlyList<Customer> customers);
 
-        void ShowCustomersData();
+        IReadOnlyList<Customer> GetCustomers();
     }
 }

@@ -29,13 +29,9 @@ namespace bbv.MvpSimple
             this.presenter = new CustomerDetailsPresenter(this, new CustomerRepository());
         }
 
-        public Customer DetailsData
+        public void ShowDetails(Customer customer)
         {
-            set { this.dvDetails.DataSource = new[] { value }; }
-        }
-
-        public void Bind()
-        {
+            this.dvDetails.DataSource = new[] { customer };
             this.dvDetails.DataBind();
         }
 
